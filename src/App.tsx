@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { Todo } from './types';
 import styled from 'styled-components';
+import Items from './components/Items';
+import { Todo } from './types';
 
 const initialState = {
   taskList: [],
@@ -49,29 +50,15 @@ const App = () => {
     setState({ taskList });
     setTodoText('');
   };
+
   const [todo, done] = getTasks(state.taskList);
   return (
     <Wrapper>
       <h1>TODO APP with TypeScript</h1>
       <Head>Todo tasks</Head>
-      <ItemWrapper>
-        {todo.map(t => (
-          <li onClick={() => doneTask(t.id)} key={t.id}>
-            <div></div>
-            <span>{t.text}</span>
-          </li>
-        ))}
-      </ItemWrapper>
+      <Items tasks={todo} doneTask={doneTask} />
       <Head>Done tasks</Head>
-      <ItemWrapper>
-        {done.map(t => (
-          <li key={t.id}>
-            <div></div>
-            <span>{t.text}</span>
-          </li>
-        ))}
-      </ItemWrapper>
-
+      <Items tasks={done} doneTask={doneTask} />
       <AddTask>
         <input type="text" value={todoText} onChange={e => setTodoText(e.target.value)} />
         <div onClick={addTask}>add new task</div>
@@ -105,32 +92,6 @@ const AddTask = styled.div`
 
 const Head = styled.h2`
   margin-bottom: 10px;
-`;
-
-const ItemWrapper = styled.ul`
-  margin: 0;
-  padding: 0;
-  li {
-    display: flex;
-    align-items: center;
-    justify-items: center;
-    list-style: none;
-    background-color: #efefef;
-    font-size: 24px;
-    padding: 5px 15px;
-    margin-bottom: 2px;
-    border-radius: 4px;
-    > div {
-      width: 20px;
-      height: 20px;
-      border: 1px solid #ccc;
-      border-radius: 50%;
-      background-color: white;
-    }
-    > span {
-      padding-left: 10px;
-    }
-  }
 `;
 
 export default App;
