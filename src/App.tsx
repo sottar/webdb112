@@ -33,6 +33,7 @@ const App = () => {
     for (let i = 0; i < clonedTaskList.length; i++) {
       if (clonedTaskList[i].id === id) {
         clonedTaskList[i].status = 'done';
+        clonedTaskList[i].completedDate = new Date(); // (1)
         break;
       }
     }
@@ -46,6 +47,7 @@ const App = () => {
       id: id,
       text: todoText,
       status: 'todo',
+      createdDate: new Date(),
     });
     setState({ taskList });
     setTodoText('');
